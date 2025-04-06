@@ -6,9 +6,49 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <title>Homeberries</title>
+     <style>
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            margin: 10px; /* Отступ для кнопок */
+            position: absolute;
+            left: 5px;
+            top: 70px;
+        }
+        .button {
+            width: 150px;
+            height: 50px;
+            margin: 5px;
+            background-color: #FF8C00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.5s, height 0.5s; /* Плавный переход для изменения размера */
+        }
+        .button:hover {
+            transform: scale(1.25); /* Увеличение размера кнопки на 20% */
+        }
+        .tooltip {
+            background-color: #333;
+            width: 150px;
+            height: 70px;
+            position: absolute;
+            left: 200px;
+            top: 30%; /* Центрирование по вертикали относительно кнопки */
+            transform: translateY(-50%); /* Центрирование по вертикали */
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .button:hover + .tooltip {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
+  <header class="header">
         <div class="container">
             <div class="logo">
 
@@ -24,6 +64,18 @@
         <!-- сюда кодить поисковую строку -->
     </div>
     <section>
+        <div class="button-container">
+                <button class="button">Электроника</button>
+                <div class="tooltip">Текст для кнопки 1</div>
+                <button class="button">Мебель</button>
+                <div class="tooltip">Текст для кнопки 2</div>
+                <button class="button">Всё для дома</button>
+                <div class="tooltip">Текст для кнопки 3</div>
+                <button class="button">Продукты</button>
+                <div class="tooltip">Текст для кнопки 4</div>
+                <button class="button">Бытовая техника</button>
+                <div class="tooltip">Текст для кнопки 5</div>
+            </div>
         <div class="container">
             <!-- сюда кодить карточки товаров -->
         </div>
