@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+
+header{
+    width: 100%;
+    height: 60px;
+    background-color: orange;
+}
+
+header .container{
+    width: 80%;
+    padding-left: 20%;
+    float: left;
+
+}
+
+header .logo {
+    width: 20%;
+    height: 60px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+header .title{
+    width: 60%;
+    height: 60px;
+    vertical-align: top;
+    display: inline-block;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+header .title p{
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    line-height: 60px;
+}
+
+header .account {
+    width: 20%;
+    height: 60px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+header .account .account-text{
+    float: left;
+    width: cacl(100%-40px);
+    margin: 20px 0;
+    text-align: left;
+    color: white;
+    font-size: 33,333333%;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+header .account .icon {
+    float: right;
+    margin: 10px 0;
+    width: 40px;
+    height: 40px;
+}
+
+.search {
+    width: 50%;
+    height: 40px;
+    background-color: aliceblue;
+    float: left;
+    margin-top: 20px;
+    margin-left: 25%;
+}
+
+section {
+    width: 100%;
+    /* height: auto; это включу когда будут готовы карточки товаров */
+    height: 800px;
+    background-color: rgb(240, 238, 238);
+}
+
+section .container {
+    width: 80%;
+}
+
+footer {
+    width: 100%;
+    height: 60px;
+    background-color: gray;
+    color: goldenrod;
+}
+
+footer .context{
+    float: left;
+    margin: 10px 15%;
+    width: 60%;
+    text-align: left;
+}
