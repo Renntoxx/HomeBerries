@@ -6,8 +6,8 @@ from sqlalchemy_serializer import SerializerMixin
 from .db_session import SqlAlchemyBase
 
 
-class News(SqlAlchemyBase, SerializerMixin):
-    __tablename__ = 'news'
+class Goods(SqlAlchemyBase, SerializerMixin):
+    __tablename__ = 'Goods'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)

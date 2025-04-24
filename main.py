@@ -15,15 +15,18 @@ app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(
     days=365
 )
 
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
 
+
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Home Berries')
+    return render_template('index.html', title='Home Berries', username=User.name)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -38,6 +41,7 @@ def login():
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
@@ -62,6 +66,7 @@ def reqister():
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
@@ -71,10 +76,12 @@ def not_found(error):
 def bad_request(_):
     return make_response(jsonify({'error': 'Bad Request'}), 400)
 
+
 def main():
     db_session.global_init("db/hb.db")
     app.register_blueprint(news_api.blueprint)
-    app.run()
+    app.run(port=5000, host='127.0.0.1')
+
 
 if __name__ == '__main__':
-    app.run(port=5000, host='127.0.0.1')
+    main()

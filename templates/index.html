@@ -11,12 +11,12 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <img src="images/logo.jpg" alt="" class="logo_i">
+                <img src="{{url_for('static', filename='images/images/logo.jpg')}}" alt="" class="logo_i">
             </div><div class="title">
                 <p>HomeBerries</p>
             </div><div class="account">
-                <a href="login.html"><p class="account-text login">Войти</p></a>
-                <a href=""><p class="account-text name"> *имя аккаунта* </p></a>
+                <a href="login"><p class="account-text login">Войти</p></a>
+                <a href=""><p class="account-text name"> {username} </p></a>
                 <img src="{{url_for('static', filename='images/user-basic-icon(350px).png')}}" alt="" class="icon">
             </div>
         </div>
