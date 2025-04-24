@@ -4,8 +4,10 @@ from flask import Flask, render_template, redirect, request, abort, make_respons
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from data import db_session
+from data.goods import Goods
 from data.users import User
 from forms.user import RegisterForm, LoginForm
+from forms.goods import GoodsForm
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -28,7 +30,7 @@ def index():
     param = {}
     if current_user.is_authenticated:
         param["username"] = current_user.name
-        param["exit"] = True
+        param["authorised"] = True
     else:
         param["username"] = "новый пользователь"
     param['title'] = 'HomeBerries'
@@ -73,6 +75,22 @@ def reqister():
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
+@app.route('/goods', methods=['GET', 'POST'])
+@login_required
+def add_news():
+    form = GoodsForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        goods = Goods()
+        goods.title = form.title.data
+        goods.content = form.content.data
+        goods.cost = form.cost.data
+        current_user.goods.append(goods)
+        db_sess.merge(current_user)
+        db_sess.commit()
+        return redirect('/')
+    return render_template('goods.html', title='Добавление товара',
+                           form=form)
 
 @app.errorhandler(404)
 def not_found(error):
