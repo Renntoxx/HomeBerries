@@ -18,7 +18,9 @@
                 <a href="login"><p class="account-text login">Войти&nbsp</p></a>
                 <a href="register"><p class="account-text login">Регистрация&nbsp</p></a>
                 <a href=""><p class="account-text name"> {{ username }}&nbsp </p></a>
+                {% if current_user.is_authenticated %}
                 <a href="logout"><p class="account-text login">Выйти</p></a>
+                {% endif %}
                 <img src="{{url_for('static', filename='images/user-basic-icon(350px).png')}}" alt="" class="icon">
             </div>
         </div>

@@ -27,8 +27,8 @@ def load_user(user_id):
 def index():
     param = {}
     if current_user.is_authenticated:
-    #if User.name:
         param["username"] = current_user.name
+        param["exit"] = True
     else:
         param["username"] = "новый пользователь"
     param['title'] = 'HomeBerries'
