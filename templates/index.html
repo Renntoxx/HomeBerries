@@ -5,7 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <title>{{ title }}</title>
+    <title>Homeberries</title>
+    <style>
+        .product-container {\
+            height: 400px; /* Высота контейнера */
+            width: 100%; /* Ширина на всю ширину родителя */
+            overflow-y: scroll; /* Вертикальный скроллинг */
+            border: 2px solid #007BFF; /* Граница контейнера */
+            padding: 15px; /* Отступы внутри контейнера */
+            background-color: #f9f9f9; /* Цвет фона */
+            margin-top: 50px; /* Отступ от верхней границы */
+            display: flex; /* Используем Flexbox */
+            flex-wrap: wrap; /* Позволяет карточкам переноситься на новую строку */
+            justify-content: flex-start; /* Выравнивание по левому краю */
+        }
+
+        .product-card {
+            width: calc(33.33% - 20px); /* Ширина карточки (3 карточки в ряд с отступами) */
+            margin: 10px; /* Отступы между карточками */
+            border: 1px solid #ccc; /* Граница карточки */
+            border-radius: 5px; /* Закругленные углы */
+            padding: 10px; /* Внутренние отступы */
+            text-align: center; /* Центрирование текста */
+            background-color: #fff; /* Цвет фона карточки */
+        }
+
+        .product-image {
+            max-width: 100%; /* Адаптивное изображение */
+            height: auto; /* Сохранение пропорций */
+        }
+
+        .add-to-cart {
+            background-color: #007BFF; /* Цвет кнопки */
+            color: white; /* Цвет текста */
+            border: none; /* Без границы */
+            padding: 10px; /* Внутренние отступы */
+            cursor: pointer; /* Указатель при наведении */
+            border-radius: 5px; /* Закругленные углы */
+        }
+
+        .add-to-cart:hover {
+            background-color: #0056b3; /* Цвет кнопки при наведении */
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -13,14 +55,9 @@
             <div class="logo">
                 <img src="{{url_for('static', filename='images/images/logo.jpg')}}" alt="" class="logo_i">
             </div><div class="title">
-                <p>HomeBerries</p>
-            </div><div class="account">
-                <a href="login"><p class="account-text login">Войти&nbsp</p></a>
-                <a href="register"><p class="account-text login">Регистрация&nbsp</p></a>
-                <a href=""><p class="account-text name"> {{ username }}&nbsp </p></a>
-                {% if current_user.is_authenticated %}
-                <a href="logout"><p class="account-text login">Выйти</p></a>
-                {% endif %}
+                <p>HomeBerries</p></div><div class="account">
+                <a href="login"><p class="account-text login">Войти</p></a>
+                <a href=""><p class="account-text name"> {username} </p></a>
                 <img src="{{url_for('static', filename='images/user-basic-icon(350px).png')}}" alt="" class="icon">
             </div>
         </div>
@@ -29,14 +66,22 @@
         <!-- сюда кодить поисковую строку -->
     </div>
     <section>
-        <div class="container">
-            <!-- сюда кодить карточки товаров -->
-            <!-- пример карточки -->
-             <div class="card">
-                <img class="card-img" src="" alt="">
-                <p class="card-name"></p>
-                .
-             </div>
+        <div class="scroll-container">
+            <div class="product-container">
+                <div class="product-card">
+                    <img src="{{url_for('static', filename='static/images/ytug.png')}}"
+                         alt="Товар 1">
+                    <p class="product-name">Цена</p>
+                    <p class="product-name">Утюг</p>
+                    <button class="add-to-cart">Добавить в корзину</button>
+                </div>
+                <div class="product-card">
+                    <img src="path/to/image2.jpg" alt="Товар 2" class="product-image">
+                    <p class="product-name">Товар 2</p>
+                    <button class="add-to-cart">Добавить в корзину</button>
+                </div>
+                <!-- Добавьте больше карточек товаров по аналогии -->
+            </div>
         </div>
     </section>
     <footer>
