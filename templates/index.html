@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <title>Homeberries</title>
+    <title>{{ title }}</title>
 </head>
 <body>
     <header class="header">
@@ -15,8 +15,10 @@
             </div><div class="title">
                 <p>HomeBerries</p>
             </div><div class="account">
-                <a href="login"><p class="account-text login">Войти</p></a>
-                <a href=""><p class="account-text name"> {username} </p></a>
+                <a href="login"><p class="account-text login">Войти&nbsp</p></a>
+                <a href="register"><p class="account-text login">Регистрация&nbsp</p></a>
+                <a href=""><p class="account-text name"> {{ username }}&nbsp </p></a>
+                <a href="logout"><p class="account-text login">Выйти</p></a>
                 <img src="{{url_for('static', filename='images/user-basic-icon(350px).png')}}" alt="" class="icon">
             </div>
         </div>

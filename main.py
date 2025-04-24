@@ -3,7 +3,7 @@ import datetime
 from flask import Flask, render_template, redirect, request, abort, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
-from data import db_session, news_api
+from data import db_session
 from data.users import User
 from forms.user import RegisterForm, LoginForm
 
@@ -25,7 +25,14 @@ def load_user(user_id):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Home Berries', username=User.name)
+    param = {}
+    if current_user.is_authenticated:
+    #if User.name:
+        param["username"] = current_user.name
+    else:
+        param["username"] = "новый пользователь"
+    param['title'] = 'HomeBerries'
+    return render_template('index.html', **param)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -76,10 +83,14 @@ def not_found(error):
 def bad_request(_):
     return make_response(jsonify({'error': 'Bad Request'}), 400)
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
 
 def main():
     db_session.global_init("db/hb.db")
-    app.register_blueprint(news_api.blueprint)
     app.run(port=5000, host='127.0.0.1')
 
 
