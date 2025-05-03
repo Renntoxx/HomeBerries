@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты поиска</title>
+</head>
+<body>
+    <header>
+        <h1>Результаты поиска</h1>
+    </header>
+    <section>
+        {% if results %}
+            <ul>
+                {% for product in results %}
+                    <li>{{ product.name }} - {{ product.category }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Ничего не найдено.</p>
+        {% endif %}
+    </section>
+</body>
+</html>

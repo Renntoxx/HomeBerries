@@ -47,6 +47,23 @@
         .add-to-cart:hover {
             background-color: #0056b3; /* Цвет кнопки при наведении */
         }
+
+        .search-text-1 {
+            margin-left: 315px; /* Отступ слева от поля ввода */
+            padding-top: 2px;
+            font-size: 25px; /* Размер шрифта */
+            color: #333; /* Цвет текста */
+
+        }
+
+        .search-icon {
+            width: 60px;
+            height: auto;
+            margin-left: 70px;
+            margin-top: -10px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -62,9 +79,17 @@
             </div>
         </div>
     </header>
+
     <div class="search">
-        <!-- сюда кодить поисковую строку -->
+        <form action="/search" method="get">
+            <input type="text" name="query" required placeholder="Поиск товаров" class="search-text-1">
+            <button type="submit">
+                <img src="{{ url_for('static', filename='images/search-icon.png') }}"
+                     alt="Поиск" class="search-icon">
+            </button>
+        </form>
     </div>
+
     <section>
         <div class="scroll-container">
             <div class="product-container">

@@ -1,26 +1,22 @@
 import datetime
-
 from flask import Flask, render_template, redirect, request, abort, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-
 from data import db_session
+from data.goods import Goods
 from data.users import User
 from forms.user import RegisterForm, LoginForm
+from forms.goods import GoodsForm
 
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
-app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(
-    days=365
-)
-
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
-
 
 @app.route('/')
 @app.route('/index')
@@ -34,6 +30,14 @@ def index():
     param['title'] = 'HomeBerries'
     return render_template('index.html', **param)
 
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('query')
+    db_sess = db_session.create_session()
+    results = db_sess.query(Goods).filter(
+        (Goods.title.contains(query)) | (Goods.id.contains(query))
+    ).all()
+    return render_template('search_results.html', results=results)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -49,9 +53,8 @@ def login():
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
 
-
 @app.route('/register', methods=['GET', 'POST'])
-def reqister():
+def register():
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
@@ -73,11 +76,9 @@ def reqister():
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
-
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
-
 
 @app.errorhandler(400)
 def bad_request(_):
@@ -92,7 +93,6 @@ def logout():
 def main():
     db_session.global_init("db/hb.db")
     app.run(port=5000, host='127.0.0.1')
-
 
 if __name__ == '__main__':
     main()
