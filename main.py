@@ -8,6 +8,7 @@ from data.goods import Goods
 from data.users import User
 from forms.user import RegisterForm, LoginForm
 from forms.goods import GoodsForm
+from forms.index import IndexForm
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -24,21 +25,20 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     param = {}
+    form = IndexForm()
+    param["form"] = form
     if current_user.is_authenticated:
         param["username"] = current_user.name
         param["exit"] = True
     else:
         param["username"] = "новый пользователь"
     param['title'] = 'HomeBerries'
-    query = request.args.get('query')
-    db_sess = db_session.create_session()
-    results = db_sess.query(Goods).filter(
-        (Goods.title.contains(query)) | (Goods.id.contains(query))
-    ).all()
+    if form.validate_on_submit():
+        pass
     return render_template('index.html', **param)
 
 
