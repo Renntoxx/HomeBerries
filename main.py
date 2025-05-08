@@ -9,6 +9,7 @@ from data.users import User
 from forms.user import RegisterForm, LoginForm
 from forms.goods import GoodsForm
 from forms.index import IndexForm
+from data.TGBot import start_bot
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -114,6 +115,7 @@ def logout():
 def main():
     db_session.global_init("db/hb.db")
     app.run(port=5000, host='127.0.0.1')
+    start_bot()
 
 
 if __name__ == '__main__':
