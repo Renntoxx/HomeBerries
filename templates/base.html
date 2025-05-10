@@ -67,6 +67,12 @@
             margin-top: -10px;
         }
 
+        .telegram-button {
+        width: 50px;
+        height: auto;
+
+        }
+
 
     </style>
 </head>
@@ -94,7 +100,13 @@
         {% block content %}{% endblock %}
     </main>
     <footer>
-        <div class="context">Support: +79661377171 | Powered by <a class="golden" href="images/Snail.png">Snail Intertaiment</a></div>
+        <div class="context">
+            Support: +79661377171 | Powered by <a class="golden" href="images/Snail.png">Snail Intertaiment</a>
+        </div>
+        <a href="https://t.me/HomeBerries_TSBot" target="_blank">
+            <img src="{{ url_for('static', filename='images/telegram-button.png') }}"
+                 alt="Перейти в Telegram" class="telegram-button">
+        </a>
     </footer>
 </body>
 </html>
