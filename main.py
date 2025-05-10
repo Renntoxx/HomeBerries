@@ -1,4 +1,6 @@
 import datetime
+import os
+from uuid import uuid4
 
 from flask import Flask, render_template, redirect, request, abort, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -7,7 +9,7 @@ from data import db_session
 from data.goods import Goods
 from data.users import User
 from forms.user import RegisterForm, LoginForm
-from forms.goods import GoodsForm
+from forms.goods import GoodsForm, photos, configure_uploads, patch_request_class
 from forms.index import IndexForm
 
 app = Flask(__name__)
@@ -17,6 +19,9 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(
     days=365
 )
+app.config['UPLOADED_PHOTOS_DEST'] = os.path.abspath(os.getcwd() + '/static/img/')
+configure_uploads(app, photos)
+patch_request_class(app)
 
 
 @login_manager.user_loader
@@ -56,6 +61,7 @@ def login():
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
@@ -79,22 +85,31 @@ def register():
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
+
+def get_full_file_name(filename):
+    return os.path.abspath(os.getcwd() + '/static/img/' + filename)
+
+
 @app.route('/goods', methods=['GET', 'POST'])
 @login_required
 def add_news():
     form = GoodsForm()
     if form.validate_on_submit():
+        filename = photos.save(form.photo.data, name=uuid4().hex + '.')
+        full_filename = get_full_file_name(filename)
         db_sess = db_session.create_session()
         goods = Goods()
         goods.title = form.title.data
         goods.content = form.content.data
         goods.cost = form.cost.data
+        goods.image_path = full_filename
         current_user.goods.append(goods)
         db_sess.merge(current_user)
         db_sess.commit()
         return redirect('/')
     return render_template('goods.html', title='Добавление товара',
                            form=form)
+
 
 @app.errorhandler(404)
 def not_found(error):
@@ -105,11 +120,13 @@ def not_found(error):
 def bad_request(_):
     return make_response(jsonify({'error': 'Bad Request'}), 400)
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect("/")
+
 
 def main():
     db_session.global_init("db/hb.db")
