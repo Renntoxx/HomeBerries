@@ -1,22 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="search">
-        <form action="" method="post">
-            <p>
-            {{ form.search.label }}
-            {{ form.search(class="form-control") }}
-            </p>
-            <p>
-            {{ form.submit(type="submit", class="btn btn-primary")}}
-            </p>
-        </form>
-    </div>
+    <form>
+        <input type="text" placeholder="Искать здесь...">
+        <button type="submit"></button>
+    </form>
     <section>
-        <div class="scroll-container">
-            <div class="product-container">
-                <!-- Добавьте больше карточек товаров по аналогии -->
-            </div>
+        <div class="product-container">
+            <div class="card">
+                <img class="card-img" src="static/images/no-image.png" alt="">
+                <div class="data-text">
+                    <p class="price">111</p>
+                    <div class="other">
+                        <p class="name-goods">Crocodilo Bombardilo</p>
+                        <p class="seller">Aboba Shop</p>
+                    </div>
+                </div>
         </div>
-    </section>>
+        </div>
+    </section>
+    <div class="clear"></div>
 {% endblock %}
