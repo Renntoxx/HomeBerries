@@ -3,96 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/style.css">
     <title>Homeberries</title>
-    <style>
-        .product-container {\
-            height: 400px; /* Высота контейнера */
-            width: 100%; /* Ширина на всю ширину родителя */
-            overflow-y: scroll; /* Вертикальный скроллинг */
-            border: 2px solid #007BFF; /* Граница контейнера */
-            padding: 15px; /* Отступы внутри контейнера */
-            background-color: #f9f9f9; /* Цвет фона */
-            margin-top: 50px; /* Отступ от верхней границы */
-            display: flex; /* Используем Flexbox */
-            flex-wrap: wrap; /* Позволяет карточкам переноситься на новую строку */
-            justify-content: flex-start; /* Выравнивание по левому краю */
-        }
-
-        .product-card {
-            width: calc(33.33% - 20px); /* Ширина карточки (3 карточки в ряд с отступами) */
-            margin: 10px; /* Отступы между карточками */
-            border: 1px solid #ccc; /* Граница карточки */
-            border-radius: 5px; /* Закругленные углы */
-            padding: 10px; /* Внутренние отступы */
-            text-align: center; /* Центрирование текста */
-            background-color: #fff; /* Цвет фона карточки */
-        }
-
-        .product-image {
-            max-width: 100%; /* Адаптивное изображение */
-            height: auto; /* Сохранение пропорций */
-        }
-
-        .add-to-cart {
-            background-color: #007BFF; /* Цвет кнопки */
-            color: white; /* Цвет текста */
-            border: none; /* Без границы */
-            padding: 10px; /* Внутренние отступы */
-            cursor: pointer; /* Указатель при наведении */
-            border-radius: 5px; /* Закругленные углы */
-        }
-
-        .add-to-cart:hover {
-            background-color: #0056b3; /* Цвет кнопки при наведении */
-        }
-
-        .search-text-1 {
-            margin-left: 315px; /* Отступ слева от поля ввода */
-            padding-top: 2px;
-            font-size: 25px; /* Размер шрифта */
-            color: #333; /* Цвет текста */
-
-        }
-
-        .search-icon {
-            width: 60px;
-            height: auto;
-            margin-left: 70px;
-            margin-top: -10px;
-        }
-
-        .telegram-button {
-        width: 50px;
-        height: auto;
-
-        }
-
-
-    </style>
 </head>
 <body>
     <header class="header">
         <div class="container">
             <div class="logo">
-                <img src="{{url_for('static', filename='images/images/logo.jpg')}}" alt="" class="logo_i">
-            </div><div class="title">
+                <img src="static/images/logo.jpg" alt="" class="logo_i">
+            </div>
+            <div class="title">
                 <p>HomeBerries</p>
-            </div><div class="account">
+            </div>
+            <div class="account">
                 {% if not current_user.is_authenticated %}
-                <a href="login"><p class="account-text login">Войти&nbsp</p></a>
-                <a href="register"><p class="account-text login">Регистрация&nbsp</p></a>
+                <p class="account-text login">
+                    <a href="login"> Войти </a>
+                    <a href="register"> Регистрация </a>
+                </p>
                 {% endif %}
                 {% if current_user.is_authenticated %}
-                <a href=""><p class="account-text name"> {{ username }}&nbsp </p></a>
-                <a href="logout"><p class="account-text login">Выйти</p></a>
+                <p class="account-text text">
+                    {{ username }}
+                    <a href="logout"> Выйти </a>
+                </p>
                 {% endif %}
-                <img src="{{url_for('static', filename='images/user-basic-icon(350px).png')}}" alt="" class="icon">
+                <img class="account-img" src="static/images/user-basic-icon(350px).png" alt="">
             </div>
         </div>
     </header>
@@ -101,12 +38,10 @@
     </main>
     <footer>
         <div class="context">
-            Support: +79661377171 | Powered by <a class="golden" href="images/Snail.png">Snail Intertaiment</a>
+            <p class="i">Телефон поддержки:</p><p class="i-fact i">+79661377171</p>
+            <p></p>
+            <p class="i">Наш чат-бот:</p><a target="_blank" href="https://t.me/HomeBerries_TSBot"class="i-fact i">t.me/HomeBerries_TSBot</a>
         </div>
-        <a href="https://t.me/HomeBerries_TSBot" target="_blank">
-            <img src="{{ url_for('static', filename='images/telegram-button.png') }}"
-                 alt="Перейти в Telegram" class="telegram-button">
-        </a>
     </footer>
 </body>
 </html>
