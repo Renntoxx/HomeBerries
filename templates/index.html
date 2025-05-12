@@ -1,46 +1,22 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <img src="{{url_for('static', filename='images/images/logo.jpg')}}" alt="" class="logo_i">
-            </div><div class="title">
-                <p>HomeBerries</p>
-            </div><div class="account">
-                <a href="login"><p class="account-text login">Войти&nbsp</p></a>
-                <a href="register"><p class="account-text login">Регистрация&nbsp</p></a>
-                <a href=""><p class="account-text name"> {{ username }}&nbsp </p></a>
-                {% if current_user.is_authenticated %}
-                <a href="logout"><p class="account-text login">Выйти</p></a>
-                {% endif %}
-                <img src="{{url_for('static', filename='images/user-basic-icon(350px).png')}}" alt="" class="icon">
-            </div>
-        </div>
-    </header>
+{% extends "base.html" %}
+
+{% block content %}
     <div class="search">
-        <!-- сюда кодить поисковую строку -->
+        <form action="" method="post">
+            <p>
+            {{ form.search.label }}
+            {{ form.search(class="form-control") }}
+            </p>
+            <p>
+            {{ form.submit(type="submit", class="btn btn-primary")}}
+            </p>
+        </form>
     </div>
     <section>
-        <div class="container">
-            <!-- сюда кодить карточки товаров -->
-            <!-- пример карточки -->
-             <div class="card">
-                <img class="card-img" src="" alt="">
-                <p class="card-name"></p>
-                .
-             </div>
+        <div class="scroll-container">
+            <div class="product-container">
+                <!-- Добавьте больше карточек товаров по аналогии -->
+            </div>
         </div>
-    </section>
-    <footer>
-        <div class="context">Support: +79661377171 | Powered by <a class="golden" href="images/Snail.png">Snail Intertaiment</a></div>
-    </footer>
-</body>
-</html>
+    </section>>
+{% endblock %}

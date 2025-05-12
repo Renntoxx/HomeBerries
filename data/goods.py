@@ -17,6 +17,8 @@ class Goods(SqlAlchemyBase, SerializerMixin):
                                      default=datetime.datetime.now)
     cost = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
 
+    image_path = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')
