@@ -4,5 +4,5 @@ from wtforms import BooleanField, SubmitField
 
 
 class IndexForm(FlaskForm):
-    search = TextAreaField("Поиск товаров")
-    submit = SubmitField()
+    search = TextAreaField("Искать здесь...")
+    submit = SubmitField("Поиск")

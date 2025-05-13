@@ -22,3 +22,4 @@ class Goods(SqlAlchemyBase, SerializerMixin):
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')
+    owner = sqlalchemy.Column(sqlalchemy.String, nullable=True)

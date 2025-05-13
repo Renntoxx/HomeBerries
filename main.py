@@ -34,6 +34,7 @@ def load_user(user_id):
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    db_sess = db_session.create_session()
     param = {}
     form = IndexForm()
     param["form"] = form
@@ -43,8 +44,12 @@ def index():
     else:
         param["username"] = "новый пользователь"
     param['title'] = 'HomeBerries'
-    if form.validate_on_submit():
-        pass
+    search = request.args.get('search', None)
+    if search:
+        goods = db_sess.query(Goods).filter(Goods.title.contains(search))
+    else:
+        goods = db_sess.query(Goods)
+    param['goods'] = goods
     return render_template('index.html', **param)
 
 
@@ -87,17 +92,13 @@ def register():
     return render_template('register.html', title='Регистрация', form=form)
 
 
-def get_full_file_name(filename):
-    return os.path.abspath(os.getcwd() + '/static/img/' + filename)
-
-
 @app.route('/goods', methods=['GET', 'POST'])
 @login_required
-def add_news():
+def add_goods():
     form = GoodsForm()
     if form.validate_on_submit():
         filename = photos.save(form.photo.data, name=uuid4().hex + '.')
-        full_filename = get_full_file_name(filename)
+        full_filename = f"/static/img/{filename}"
         db_sess = db_session.create_session()
         goods = Goods()
         goods.title = form.title.data
@@ -109,7 +110,7 @@ def add_news():
         db_sess.commit()
         return redirect('/')
     return render_template('goods.html', title='Добавление товара',
-                           form=form)
+                           form=form, username=current_user.name)
 
 
 @app.errorhandler(404)

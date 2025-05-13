@@ -1,23 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form>
-        <input type="text" placeholder="Искать здесь...">
+    <form action="/index">
+        <input type="text" placeholder="Искать здесь..." name="search">
         <button type="submit"></button>
     </form>
     <section>
+        {% for item in goods %}
         <div class="product-container">
             <div class="card">
-                <img class="card-img" src="static/images/no-image.png" alt="">
+                <img class="card-img" src="{{ item.image_path }}" alt="">
                 <div class="data-text">
-                    <p class="price">111</p>
+                    <p class="price">{{ item.cost }}₽</p>
                     <div class="other">
-                        <p class="name-goods">Crocodilo Bombardilo</p>
+                        <p class="name-goods">{{ item.title }}</p>
                         <p class="seller">Aboba Shop</p>
                     </div>
                 </div>
         </div>
         </div>
     </section>
-    <div class="clear"></div>
+        {% endfor %}
 {% endblock %}
