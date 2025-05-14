@@ -1,42 +1,102 @@
-{% extends "base.html" %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/style2.css">
+    <link rel="stylesheet" href="static/font-awesome-6.7.2/css/font-awesome.min.css">
+    <title>Homeberries</title>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <img src="static/images/logo.jpg" alt="" class="logo_i">
+        </div>
+        <div class="title">
+            <p><a href="/" class="btn btn-warning">{{ title }}</a></p>
+        </div>
+        <div class="account">
+            {% if not current_user.is_authenticated %}
+            <p class="account-text login">
+                <a href="login"> Войти </a>
+                <a href="register"> Регистрация </a>
+            </p>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <p class="account-text text">
+                {{ username }}
+                <a href="logout"> Выйти </a>
+            </p>
+            {% endif %}
+            <img class="account-img" src="static/images/user-basic-icon(350px).png" alt="">
+        </div>
+    </div>
+</header>
+<main role="main" class="container">
     <h1>Добавление товара</h1>
-<form action="" method="post" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.title.label }}<br>
-        {{ form.title(class="form-control") }}<br>
-        {% for error in form.title.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
+    <form action="" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(class="form-control") }}<br>
+            {% for error in form.title.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
         {% endfor %}
-    <p>
-        {{ form.cost.label }}<br>
-        {{ form.cost(class="form-control") }}<br>
-        {% for error in form.cost.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
+        <p>
+            {{ form.cost.label }}<br>
+            {{ form.cost(class="form-control") }}<br>
+            {% for error in form.cost.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
         {% endfor %}
-    <p>
-        {{ form.content.label }}<br>
-        {{ form.content(class="form-control") }}<br>
-        {% for error in form.content.errors %}
-            <p content="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
+        <p>
+            {{ form.content.label }}<br>
+            {{ form.content(class="form-control") }}<br>
+            {% for error in form.content.errors %}
+        <p content="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
 
-    <p>
-        {{ form.photo(accept="image/jpeg,image/png,image/gif,image/jpg,image/jpe,image/svg,image/bmp") }}
+        <p>
+            {{ form.photo.label }}<br>
+            {{
+            form.photo(accept="image/jpeg,image/png,image/gif,image/jpg,image/jpe,image/svg,image/bmp")
+            }}
             <br>
-        {% for error in form.photo.errors %}
-                <span style="color: red;">{{ error }}</span>
+            {% for error in form.photo.errors %}
+            <span style="color: red;">{{ error }}</span>
             {% endfor %}
-    </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{message}}
-    </form>>
-{% endblock %}
+        </p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        {{message}}
+    </form>
+</main>
+<footer>
+    <div class="context">
+        <p class="i">Телефон поддержки:</p>
+        <p class="i-fact i">+79661377171</p>
+        <div class="clear"></div>
+        <p class="i">Наш чат-бот:</p><a target="_blank" href="https://t.me/HomeBerries_TSBot"
+                                        class="i-fact i">t.me/HomeBerries_TSBot</a>
+        <div class="clear"></div>
+        {% if current_user.is_authenticated %}
+        <p class="i">Ваш баланс: {{ balance }}</p>
+        {% endif %}
+        <div class="clear"></div>
+        {% if current_user.is_authenticated %}
+        <a href="/index?search=@#$" class="i-fact i">Посмотреть ваши товары</a>
+        <div class="clear"></div>
+        <a href="/balance" class="i-fact i">Пополнить баланс</a>
+        <div class="clear"></div>
+        <a href="/goods" class="i-fact i">Добавить товар</a>
+        {% endif %}
+    </div>
+</footer>
+</body>
+</html>
