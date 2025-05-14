@@ -2,22 +2,18 @@
 
 {% block content %}
     <form action="/index">
-        <input type="text" placeholder="Искать здесь..." name="search">
-        <button type="submit"></button>
+        <input type="text" placeholder="Искать здесь..." name="search" class="search-field"><button type="submit" class="search-btn">></button>
     </form>
     <section>
         {% for item in goods %}
         <div class="product-container">
             <div class="card">
-                <img class="card-img" src="{{ item.image_path }}" alt="">
-                <div class="data-text">
-                    <p class="price">{{ item.cost }}₽</p>
-                    <div class="other">
-                        <p class="name-goods">{{ item.title }}</p>
-                        <p class="seller">Aboba Shop</p>
-                    </div>
-                </div>
-        </div>
+                <img src="{{ item.image_path }}" alt="">
+                <h1>{{ item.title }}</h1>
+                <p class="price">{{ item.cost }}₽</p>
+                <p>{{ item.owner }}</p>
+                <a href="/goods_buy/{{ item.id }}"><button class="buy">Купить</button></a>
+            </div>
         </div>
     </section>
         {% endfor %}

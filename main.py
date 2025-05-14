@@ -10,7 +10,7 @@ from data.goods import Goods
 from data.users import User
 from forms.user import RegisterForm, LoginForm
 from forms.goods import GoodsForm, photos, configure_uploads, patch_request_class
-from forms.index import IndexForm
+from forms.balance import BalanceFrom
 from data.TGBot import start_bot
 
 app = Flask(__name__)
@@ -36,20 +36,21 @@ def load_user(user_id):
 def index():
     db_sess = db_session.create_session()
     param = {}
-    form = IndexForm()
-    param["form"] = form
     if current_user.is_authenticated:
         param["username"] = current_user.name
         param["exit"] = True
-    else:
-        param["username"] = "новый пользователь"
+        param["balance"] = current_user.balance
     param['title'] = 'HomeBerries'
     search = request.args.get('search', None)
     if search:
-        goods = db_sess.query(Goods).filter(Goods.title.contains(search))
+        if search == "@#$" and current_user.is_authenticated:
+            goods = db_sess.query(Goods).filter(Goods.user == current_user)
+        else:
+            goods = db_sess.query(Goods).filter(Goods.title.contains(search))
     else:
         goods = db_sess.query(Goods)
     param['goods'] = goods
+    param['search'] = search
     return render_template('index.html', **param)
 
 
@@ -105,12 +106,50 @@ def add_goods():
         goods.content = form.content.data
         goods.cost = form.cost.data
         goods.image_path = full_filename
+        goods.owner = current_user.name
+        goods.user = current_user
         current_user.goods.append(goods)
         db_sess.merge(current_user)
         db_sess.commit()
         return redirect('/')
     return render_template('goods.html', title='Добавление товара',
                            form=form, username=current_user.name)
+
+
+@app.route('/balance', methods=['GET', 'POST'])
+@login_required
+def balance_change():
+    form = BalanceFrom()
+    if form.validate_on_submit() and form.balance.data:
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(current_user.id == User.id).first()
+        user.balance += int(form.balance.data)
+        db_sess.commit()
+        return redirect('/')
+    return render_template('balance.html', title='Пополнение баланса',
+                           form=form, username=current_user.name)
+
+
+@app.route('/goods_buy/<int:goods_id>', methods=['GET', 'POST'])
+@login_required
+def images_delete(goods_id):
+    session = db_session.create_session()
+    goods = session.query(Goods).filter(Goods.id == goods_id).first()
+    seller = session.query(User).filter(goods.owner == User.name).first()
+    buyer = session.query(User).filter(current_user.id == User.id).first()
+    if goods:
+        try:
+            if buyer.balance <= goods.cost:
+                seller.balance += goods.cost
+                buyer.balance -= goods.cost
+                goods.user = current_user
+                goods.owner = buyer.name
+                session.commit()
+        except OSError:
+            pass
+    else:
+        abort(404)
+    return redirect('/')
 
 
 @app.errorhandler(404)

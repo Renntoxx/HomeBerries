@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
-* {box-sizing: border-box;}
-
 body {
     font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
@@ -40,7 +38,7 @@ header .logo .logo_i {
 }
 
 header .title{
-    width: 50%;
+    width: 60%;
     height: 60px;
     vertical-align: top;
     display: inline-block;
@@ -63,7 +61,7 @@ header .account {
 
 header .account .account-text{
     width: calc(100% - 40px);
-    float: left;    
+    float: left;
     margin: 20px 0;
     text-align: center;
     color: white;
@@ -88,45 +86,42 @@ header .account .account-img {
 }
 
 form {
-  position: relative;
-  width: 60%;
-  margin: 30px auto;
+    position: relative;
+    width: 60%;
+    margin: 30px auto;
 }
 
-input {
-  width: 100%;
-  height: 42px;
-  padding-left: 10px;
-  border: 2px solid orange;
-  border-radius: 5px;
-  outline: none;
-  background: white;
-  color: #9E9C9C;
+.search-field {
+    display: inline-block;
+    width: calc(100% - 42px);
+    height: 42px;
+    vertical-align: top;
+    border: 2px solid orange;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    background: white;
+    color: #9E9C9C;
 }
 
-button {
-  position: absolute; 
-  top: 0;
-  right: 0px;
-  width: 42px;
-  height: 42px;
-  border: none;
-  background: orange;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-}
-
-button:before {
-  content: ">";
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 32px;
-  color: white;
-  line-height: 32px
+.search-btn {
+    display: inline-block;
+    vertical-align: top;
+    width: 42px;
+    height: 42px;
+    margin: auto;
+    border: none;
+    background: orange;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 32px;
+    color: white;
+    line-height: 32px;
 }
 
 section {
-    width: 100%;
     height: auto;
+    min-height: 100%;
     background-color: white;
     padding: 0 0 30px 0;
 }
@@ -138,56 +133,47 @@ section {
 }
 
 .card {
-    width: 19%;
-    padding-left: 1%;
     display: inline-block;
-    padding-top: 5px;
-}
-
-.card-img {
-    width: 100%;
-    border-radius: 10% 10% 0 0;
-}
-
-.data-text {
-    width: 100%;
-    display: block;
-    border-color: yellow;
-    background-color: lightgray;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 19%;
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    margin-bottom: 5px;
 }
 
 .price {
-    display: inline-block;
+    color: grey;
+    font-size: 22px;
+}
+
+.buy:hover {
+    opacity: 0.7;
+}
+
+.buy {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: orange;
+    text-align: center;
+    cursor: pointer;
     width: 100%;
-    font-size: 180%;
-    font-family: 'Times New Roman', Times, serif;
-    color: darkorange;
-}
-
-.other {
-    display: block;
-    width: 100%;
-}
-
-.name-goods {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 10px;
-}
-
-.seller {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 10px;
+    font-size: 18px;
 }
 
 footer {
     width: 100%;
-    height: 60px;
+    height: 100px;
     background-color: gray;
     color: goldenrod;
 }
 
 footer .context {
     float: left;
+    height: 100px;
     margin: 10px 15%;
     width: 60%;
     text-align: left;
@@ -202,6 +188,11 @@ footer .i-fact {
     padding: 0 2px 0 2px;
 }
 
+i {
+    width: 40px;
+    height: 40px;
+}
+
 @media screen and (min-width: 601px) and (max-width: 800px) {
     .card {
         width: 24%;
@@ -211,6 +202,21 @@ footer .i-fact {
 @media screen and (max-width: 600px) {
     .card {
         width: 48%;
-        padding-left: 2%;
+    }
+    .account-img {
+        display: none;
+    }
+
+    .account-text {
+        display: none;
+    }
+
+    .logo{
+        display: none;
+    }
+
+    .title {
+        width: 100%;
+        text-align: center;
     }
 }
