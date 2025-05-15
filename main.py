@@ -170,7 +170,7 @@ def goods_sell(goods_id):
             pass
     else:
         abort(404)
-    return redirect('/')
+    return redirect('/index?search=@')
 
 
 @app.route('/goods_unsell/<int:goods_id>', methods=['GET', 'POST'])

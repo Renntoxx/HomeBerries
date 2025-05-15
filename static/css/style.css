@@ -7,6 +7,13 @@ body {
     font-style: normal;
 }
 
+.i-fact {
+    color: orange;
+}
+
+a {
+    color: white;
+}
 
 header{
     width: 100%;
@@ -26,7 +33,7 @@ header .container{
 }
 
 .logo {
-    width: 20%;
+    width: 10%;
     height: 60px;
     vertical-align: top;
     display: inline-block;
@@ -38,7 +45,7 @@ header .logo .logo_i {
 }
 
 header .title{
-    width: 60%;
+    width: 55%;
     height: 60px;
     vertical-align: top;
     display: inline-block;
@@ -53,19 +60,20 @@ header .title p{
 }
 
 header .account {
-    width: 20%;
+    display: inline-block;
+    width: 30%;
     height: 60px;
     vertical-align: top;
-    display: inline-block;
 }
 
 header .account .account-text{
-    width: calc(100% - 40px);
+    width: calc(100% - 47px);
     float: left;
     margin: 20px 0;
     text-align: center;
     color: white;
     font-size: 33,333333%;
+    line-height: 14px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -77,18 +85,52 @@ header .account .account-text{
     display: none;
 }
 
+.size {
+    aspect-ratio: 1 / 1;
+}
+
 header .account .account-img {
     float: right;
     margin: 10px 0;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 5%;
 }
 
 form {
     position: relative;
     width: 60%;
     margin: 30px auto;
+}
+
+input {
+  width: 100%;
+  height: 42px;
+  padding-left: 10px;
+  border: 2px solid orange;
+  border-radius: 5px;
+  outline: none;
+  background: white;
+  color: #9E9C9C;
+}
+
+button {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: orange;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+button:before {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 32px;
+  color: white;
+  line-height: 32px
 }
 
 .search-field {
@@ -119,9 +161,19 @@ form {
     line-height: 32px;
 }
 
+.register {
+    text-align: center;
+    font-size: 32px;
+    color: orange;
+}
+.ps {
+    width: 100%;
+    text-align: center;
+}
+
 section {
-    height: auto;
-    min-height: 100%;
+    width: 100%;
+    min-height: 800px;
     background-color: white;
     padding: 0 0 30px 0;
 }
@@ -153,6 +205,7 @@ section {
 }
 
 .buy {
+    position: relative;
     border: none;
     outline: 0;
     padding: 12px;
@@ -162,13 +215,7 @@ section {
     cursor: pointer;
     width: 100%;
     font-size: 18px;
-}
-
-footer {
-    width: 100%;
-    height: 100px;
-    background-color: gray;
-    color: goldenrod;
+    border-radius: 0;
 }
 
 footer {
@@ -176,38 +223,48 @@ footer {
     height: auto;
     background-color: gray;
     color: goldenrod;
-    font-size: 16px;
-    line-height: 18px;
+}
+
+footer .context {
+    float: left;
+    margin: 10px 15%;
+    width: 60%;
+    text-align: left;
 }
 
 footer .i-fact {
     color: gold;
 }
 
-.foot {
-    padding-left: 20%;
-}
-
 .i {
     display: inline-block;
     padding: 0 2px 0 2px;
-
 }
 
-i {
-    width: 40px;
-    height: 40px;
+.i2 {
+    display: inline-block;
+}
+header .account .enter {
+    text-align: right;
+    margin-right: 5px;
 }
 
-@media screen and (max-width: 600px) {
+
+@media screen and (min-width: 801px) and (max-width: 800px) {
+    .card {
+        width: 24%;
+    }
+}
+
+@media screen and (max-width: 800px) {
     .card {
         width: 48%;
     }
-    .account-img {
+    header .account .account-img {
         display: none;
     }
 
-    .account-text {
+    header .account .account-text {
         display: none;
     }
 
@@ -215,7 +272,7 @@ i {
         display: none;
     }
 
-    .title {
+    header .title {
         width: 100%;
         text-align: center;
     }
