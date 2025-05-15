@@ -20,3 +20,4 @@ class Goods(SqlAlchemyBase, SerializerMixin):
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')
     owner = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    sellable = sqlalchemy.Column(sqlalchemy.Integer, default=1)

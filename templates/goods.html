@@ -55,15 +55,6 @@
         </p>
         {% endfor %}
         <p>
-            {{ form.content.label }}<br>
-            {{ form.content(class="form-control") }}<br>
-            {% for error in form.content.errors %}
-        <p content="alert alert-danger" role="alert">
-            {{ error }}
-        </p>
-        {% endfor %}
-
-        <p>
             {{ form.photo.label }}<br>
             {{
             form.photo(accept="image/jpeg,image/png,image/gif,image/jpg,image/jpe,image/svg,image/bmp")

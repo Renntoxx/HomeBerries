@@ -15,9 +15,6 @@ from data.TGBot import start_bot
 from forms.goods import GoodsForm
 from data.TGBot import start_bot
 
-
-
-
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -48,12 +45,13 @@ def index():
     param['title'] = 'HomeBerries'
     search = request.args.get('search', None)
     if search:
-        if search == "@#$" and current_user.is_authenticated:
-            goods = db_sess.query(Goods).filter(Goods.user == current_user)
+        if search == "@" and current_user.is_authenticated:
+            goods = db_sess.query(Goods).filter(Goods.owner == current_user.name)
         else:
-            goods = db_sess.query(Goods).filter(Goods.title.contains(search))
+            goods = db_sess.query(Goods).filter(
+                (Goods.title.contains(search)) & (Goods.sellable == 1))
     else:
-        goods = db_sess.query(Goods)
+        goods = db_sess.query(Goods).filter(Goods.sellable == 1)
     param['goods'] = goods
     param['search'] = search
     return render_template('index.html', **param)
@@ -103,14 +101,17 @@ def register():
 def add_goods():
     form = GoodsForm()
     if form.validate_on_submit():
-        filename = photos.save(form.photo.data, name=uuid4().hex + '.')
-        full_filename = f"/static/img/{filename}"
         db_sess = db_session.create_session()
         goods = Goods()
+        if form.photo.data:
+            filename = photos.save(form.photo.data, name=uuid4().hex + '.')
+            full_filename = f"/static/img/{filename}"
+            goods.image_path = full_filename
+        else:
+            goods.image_path = "/static/images/no-image.png"
         goods.title = form.title.data
         goods.content = form.content.data
         goods.cost = form.cost.data
-        goods.image_path = full_filename
         goods.owner = current_user.name
         goods.user = current_user
         current_user.goods.append(goods)
@@ -143,13 +144,44 @@ def images_delete(goods_id):
     seller = session.query(User).filter(goods.owner == User.name).first()
     buyer = session.query(User).filter(current_user.id == User.id).first()
     if goods:
-        try:
-            if buyer.balance <= goods.cost:
+        if buyer.balance >= goods.cost:
+            try:
                 seller.balance += goods.cost
                 buyer.balance -= goods.cost
-                goods.user = current_user
                 goods.owner = buyer.name
                 session.commit()
+            except OSError:
+                pass
+    else:
+        abort(404)
+    return redirect('/')
+
+
+@app.route('/goods_sell/<int:goods_id>', methods=['GET', 'POST'])
+@login_required
+def goods_sell(goods_id):
+    session = db_session.create_session()
+    goods = session.query(Goods).filter(Goods.id == goods_id).first()
+    if goods:
+        try:
+            goods.sellable = 1
+            session.commit()
+        except OSError:
+            pass
+    else:
+        abort(404)
+    return redirect('/')
+
+
+@app.route('/goods_unsell/<int:goods_id>', methods=['GET', 'POST'])
+@login_required
+def goods_unsell(goods_id):
+    session = db_session.create_session()
+    goods = session.query(Goods).filter(Goods.id == goods_id).first()
+    if goods:
+        try:
+            goods.sellable = 0
+            session.commit()
         except OSError:
             pass
     else:

@@ -12,7 +12,15 @@
                 <h1>{{ item.title }}</h1>
                 <p class="price">{{ item.cost }}₽</p>
                 <p>{{ item.owner }}</p>
+                {% if current_user.is_authenticated %}
+                {% if item.owner == current_user.name and not item.sellable %}
+                <a href="/goods_sell/{{ item.id }}"><button class="buy">Выставить на продажу</button></a>
+                {% elif item.owner == current_user.name and item.sellable %}
+                <a href="/goods_unsell/{{ item.id }}"><button class="buy">Убрать с продажи</button></a>
+                {% elif item.owner != current_user.name and item.sellable %}
                 <a href="/goods_buy/{{ item.id }}"><button class="buy">Купить</button></a>
+                {% endif %}
+                {% endif %}
             </div>
         </div>
     </section>
