@@ -11,8 +11,7 @@ photos = UploadSet('photos', IMAGES)
 
 class GoodsForm(FlaskForm):
     title = StringField('Заголовок', validators=[DataRequired()])
-    content = TextAreaField("Содержание")
-    cost = TextAreaField("Цена")
+    cost = StringField("Цена")
     submit = SubmitField('Применить')
     photo = FileField('Загрузить фото товара', validators=[FileAllowed(photos, 'Images only!')])
 

@@ -9,85 +9,85 @@
     <title>Homeberries</title>
 </head>
 <body>
-<header class="header">
-    <div class="container">
-        <div class="logo">
-            <a href="/index"><img src="static/images/logo.jpg" alt="" class="logo_i"></a>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/index"><img src="static/images/logo.jpg" alt="" class="logo_i"></a>
+            </div><div class="title">
+                <p>HomeBerries</p>
+            </div><div class="account">
+                {% if not current_user.is_authenticated %}
+                <p class="enter account-text">
+                    <a href="login">Войти</a>
+                </p>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                <p class="account-text">
+                    <b class="i">{{ username }}</b>
+                    <i class="i">
+                        <i class="i">(</i>
+                        <a href="logout" class="i2">Выйти</a>
+                        <i class="i">)</i>
+                    </i>
+                </p>
+                {% endif %}
+                <img class="account-img" src="static/images/user-basic-icon(350px).png" alt="">
+            </div>
         </div>
-        <div class="title">
-            <p>{{ title }}</p>
-        </div>
-        <div class="account">
-            {% if not current_user.is_authenticated %}
-            <p class="enter account-text">
-                <a href="login">Войти</a>
-            </p>
-            {% endif %}
-            {% if current_user.is_authenticated %}
-            <p class="account-text">
-                <b class="i">{{ username }}</b>
-                <i class="i">
-                    <i class="i">(</i>
-                    <a href="logout" class="i2">Выйти</a>
-                    <i class="i">)</i>
-                </i>
-            </p>
-            {% endif %}
-            <img class="account-img" src="static/images/user-basic-icon(350px).png" alt="">
-        </div>
-    </div>
-</header>
-<main role="main" class="container">
-    <form action="/index">
-        <input type="text" placeholder="Искать здесь..." name="search" class="search-field">
-        <button type="submit" class="search-btn">></button>
-    </form>
-    <section>
-        <div class="product-container">
-            {% for item in goods %}
-                <div class="card">
-                    <img src="{{ item.image_path }}" alt="" class="size">
-                    <h1>{{ item.title }}</h1>
-                    <p class="price">{{ item.cost }}₽</p>
-                    <p>{{ item.owner }}</p>
-                    {% if current_user.is_authenticated %}
-                    {% if item.owner == current_user.name and not item.sellable %}
-                    <a href="/goods_sell/{{ item.id }}">
-                        <button class="buy">Выставить на продажу</button>
-                    </a>
-                    {% elif item.owner == current_user.name and item.sellable %}
-                    <a href="/goods_unsell/{{ item.id }}">
-                        <button class="buy">Убрать с продажи</button>
-                    </a>
-                    {% elif item.owner != current_user.name and item.sellable %}
-                    <a href="/goods_buy/{{ item.id }}">
-                        <button class="buy">Купить</button>
-                    </a>
-                    {% endif %}
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>
-    </section>
-</main>
+    </header>
+    <main role="main">
+        <form action="/index">
+            <input type="text" placeholder="Искать здесь..." name="search" class="search-field">
+            <button type="submit" class="search-btn">></button>
+        </form>
+        <section>
+            <div class="product-container">
+                {% for item in goods %}
+                    <div class="card">
+                        <img src="{{ item.image_path }}" alt="" class="size">
+                        <h1>{{ item.title }}</h1>
+                        <p class="price">{{ item.cost }}₽</p>
+                        <p>{{ item.owner }}</p>
+                        {% if current_user.is_authenticated %}
+                        {% if item.owner == current_user.name and not item.sellable %}
+                        <a href="/goods_sell/{{ item.id }}">
+                            <button class="buy">Выставить на продажу</button>
+                        </a>
+                        {% elif item.owner == current_user.name and item.sellable %}
+                        <a href="/goods_unsell/{{ item.id }}">
+                            <button class="buy">Убрать с продажи</button>
+                        </a>
+                        {% elif item.owner != current_user.name and item.sellable %}
+                        <a href="/goods_buy/{{ item.id }}">
+                            <button class="buy">Купить</button>
+                        </a>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
 <footer>
-        <p class="i">Телефон поддержки:</p>
-        <p class="i-fact i">+79661377171</p>
-        <div class="clear"></div>
-        <p class="i">Наш чат-бот:</p><a target="_blank" href="https://t.me/HomeBerries_TSBot"
-                                        class="i-fact i">t.me/HomeBerries_TSBot</a>
-        <div class="clear"></div>
-        {% if current_user.is_authenticated %}
-        <p class="i">Ваш баланс: {{ balance }}</p>
-        {% endif %}
-        <div class="clear"></div>
-        {% if current_user.is_authenticated %}
-        <a href="/index?search=@" class="i-fact i">Посмотреть ваши товары</a>
-        <div class="clear"></div>
-        <a href="/balance" class="i-fact i">Пополнить баланс</a>
-        <div class="clear"></div>
-        <a href="/goods" class="i-fact i">Добавить товар</a>
-        {% endif %}
+        <div class="context">
+            <p class="i">Телефон поддержки:</p>
+            <p class="i-fact i">+79661377171</p>
+            <div class="clear"></div>
+            <p class="i">Наш чат-бот:</p><a target="_blank" href="https://t.me/HomeBerries_TSBot"
+                                            class="i-fact i">t.me/HomeBerries_TSBot</a>
+            <div class="clear"></div>
+            {% if current_user.is_authenticated %}
+            <p class="i">Ваш баланс: <p class="i-fact i">{{ balance }}</p></p>
+            {% endif %}
+            <div class="clear"></div>
+            {% if current_user.is_authenticated %}
+            <a href="/index?search=@#$" class="i-fact i">Посмотреть ваши товары</a>
+            <div class="clear"></div>
+            <a href="/balance" class="i-fact i">Пополнить баланс</a>
+            <div class="clear"></div>
+            <a href="/goods" class="i-fact i">Добавить товар</a>
+            {% endif %}
+        </div>
 </footer>
 </body>
 </html>

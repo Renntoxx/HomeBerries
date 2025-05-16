@@ -9,81 +9,82 @@
     <title>Homeberries</title>
 </head>
 <body>
-<header class="header">
-    <div class="container">
-        <div class="logo">
-            <a href="/index"><img src="static/images/logo.jpg" alt="" class="logo_i"></a>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/index"><img src="static/images/logo.jpg" alt="" class="logo_i"></a>
+            </div><div class="title">
+                <p>HomeBerries</p>
+            </div>
         </div>
-        <div class="title">
-            <p>HomeBerries</p>
+    </header>
+    <section>
+        <main role="main">
+            <h1 class="register">Регистрация в HomeBerries</h1>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.email.label }}<br>
+                    {{ form.email(class="form-control", type="email") }}<br>
+                    {% for error in form.email.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p>
+                <p>
+                    {{ form.password.label }}<br>
+                    {{ form.password(class="form-control", type="password") }}<br>
+                    {% for error in form.password.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p>
+                <p>
+                    {{ form.password_again.label }}<br>
+                    {{ form.password_again(class="form-control", type="password") }}<br>
+                    {% for error in form.password_again.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p>
+                <p>
+                    {{ form.name.label }}<br>
+                    {{ form.name(class="form-control") }}<br>
+                    {% for error in form.name.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p><br>
+                <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+                {{message}}
+            </form>
+            <div class="ps"><p class="i">Уже есть аккаунт?</p><a href="/login" class="i-fact i">Войти</a></div>
+        </main>
+    </section>
+    <footer>
+        <div class="context">
+            <p class="i">Телефон поддержки:</p>
+            <p class="i-fact i">+79661377171</p>
+            <div class="clear"></div>
+            <p class="i">Наш чат-бот:</p><a target="_blank" href="https://t.me/HomeBerries_TSBot"
+                                            class="i-fact i">t.me/HomeBerries_TSBot</a>
+            <div class="clear"></div>
+            {% if current_user.is_authenticated %}
+            <p class="i">Ваш баланс: <p class="i-fact i">{{ balance }}</p></p>
+            {% endif %}
+            <div class="clear"></div>
+            {% if current_user.is_authenticated %}
+            <a href="/index?search=@#$" class="i-fact i">Посмотреть ваши товары</a>
+            <div class="clear"></div>
+            <a href="/balance" class="i-fact i">Пополнить баланс</a>
+            <div class="clear"></div>
+            <a href="/goods" class="i-fact i">Добавить товар</a>
+            {% endif %}
         </div>
-    </div>
-</header>
-<section>
-    <main role="main" class="container">
-        <h1 class="register">Регистрация в HomeBerries</h1>
-        <form action="" method="post">
-            {{ form.hidden_tag() }}
-            <p>
-                {{ form.email.label }}<br>
-                {{ form.email(class="form-control", type="email") }}<br>
-                {% for error in form.email.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p>
-            <p>
-                {{ form.password.label }}<br>
-                {{ form.password(class="form-control", type="password") }}<br>
-                {% for error in form.password.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p>
-            <p>
-                {{ form.password_again.label }}<br>
-                {{ form.password_again(class="form-control", type="password") }}<br>
-                {% for error in form.password_again.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p>
-            <p>
-                {{ form.name.label }}<br>
-                {{ form.name(class="form-control") }}<br>
-                {% for error in form.name.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p><br>
-            <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-            {{message}}
-        </form>
-        <div class="ps"><p class="i">Уже есть аккаунт?</p><a href="/login" class="i-fact i">Войти</a></div>
-    </main>
-</section>
-<footer>
-        <p class="i">Телефон поддержки:</p>
-        <p class="i-fact i">+79661377171</p>
-        <div class="clear"></div>
-        <p class="i">Наш чат-бот:</p>
-        <a target="_blank" href="https://t.me/HomeBerries_TSBot" class="i-fact i">t.me/HomeBerries_TSBot</a>
-        <div class="clear"></div>
-        {% if current_user.is_authenticated %}
-        <p class="i">Ваш баланс: {{ balance }}</p>
-        {% endif %}
-        <div class="clear"></div>
-        {% if current_user.is_authenticated %}
-        <a href="/index?search=@" class="i-fact i">Посмотреть ваши товары</a>
-        <div class="clear"></div>
-        <a href="/balance" class="i-fact i">Пополнить баланс</a>
-        <div class="clear"></div>
-        <a href="/goods" class="i-fact i">Добавить товар</a>
-        {% endif %}
-</footer>
+    </footer>
 </body>
 </html>

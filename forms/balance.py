@@ -4,5 +4,5 @@ from wtforms import BooleanField, SubmitField
 
 
 class BalanceFrom(FlaskForm):
-    balance = TextAreaField("Сумма пополнения")
+    balance = StringField("Сумма пополнения")
     submit = SubmitField("Подтвердить")
