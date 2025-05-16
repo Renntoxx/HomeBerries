@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/HB.iml" filepath="$PROJECT_DIR$/.idea/HB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/HomeBerries.iml" filepath="$PROJECT_DIR$/.idea/HomeBerries.iml" />
     </modules>
   </component>
 </project>

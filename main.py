@@ -9,11 +9,10 @@ from data import db_session
 from data.goods import Goods
 from data.users import User
 from forms.user import RegisterForm, LoginForm
-from forms.goods import GoodsForm, photos, configure_uploads, patch_request_class
+from forms.goods import photos, configure_uploads, patch_request_class
 from forms.balance import BalanceFrom
-from data.TGBot import start_bot
 from forms.goods import GoodsForm
-from data.TGBot import start_bot
+from TGBot import start_bot
 
 app = Flask(__name__)
 login_manager = LoginManager()
