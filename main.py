@@ -68,7 +68,7 @@ def login():
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    return render_template('login.html', title='Авторизация', form=form)
+    return render_template('login.html', title='Homeberries', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -92,7 +92,7 @@ def register():
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
-    return render_template('register.html', title='Регистрация', form=form)
+    return render_template('register.html', title='Homeberries', form=form)
 
 
 @app.route('/goods', methods=['GET', 'POST'])
@@ -109,7 +109,6 @@ def add_goods():
         else:
             goods.image_path = "/static/images/no-image.png"
         goods.title = form.title.data
-        goods.content = form.content.data
         goods.cost = form.cost.data
         goods.owner = current_user.name
         goods.user = current_user
@@ -117,8 +116,8 @@ def add_goods():
         db_sess.merge(current_user)
         db_sess.commit()
         return redirect('/')
-    return render_template('goods.html', title='Добавление товара',
-                           form=form, username=current_user.name)
+    return render_template('goods.html', title='Homeberries',
+                           form=form, username=current_user.name, balance=current_user.balance)
 
 
 @app.route('/balance', methods=['GET', 'POST'])
@@ -131,8 +130,8 @@ def balance_change():
         user.balance += int(form.balance.data)
         db_sess.commit()
         return redirect('/')
-    return render_template('balance.html', title='Пополнение баланса',
-                           form=form, username=current_user.name)
+    return render_template('balance.html', title='Homeberries',
+                           form=form, username=current_user.name, balance=current_user.balance)
 
 
 @app.route('/goods_buy/<int:goods_id>', methods=['GET', 'POST'])
@@ -153,7 +152,7 @@ def images_delete(goods_id):
                 pass
     else:
         abort(404)
-    return redirect('/')
+    return redirect('/index?search=@')
 
 
 @app.route('/goods_sell/<int:goods_id>', methods=['GET', 'POST'])

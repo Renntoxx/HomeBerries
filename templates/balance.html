@@ -13,11 +13,9 @@
         <div class="container">
             <div class="logo">
                 <a href="/index"><img src="static/images/logo.jpg" alt="" class="logo_i"></a>
-            </div>
-            <div class="title">
+            </div><div class="title">
                 <p>{{ title }}</p>
-            </div>
-            <div class="account">
+            </div><div class="account">
                 {% if not current_user.is_authenticated %}
                 <p class="enter account-text">
                     <a href="login">Войти</a>
@@ -49,7 +47,7 @@
             <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>
-            {% endfor %}
+            {% endfor %}<br>
             <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
             {{message}}
         </form>
@@ -68,7 +66,7 @@
                 {% endif %}
                 <div class="clear"></div>
                 {% if current_user.is_authenticated %}
-                <a href="/index?search=@#$" class="i-fact i">Посмотреть ваши товары</a>
+                <a href="/index?search=@" class="i-fact i">Посмотреть ваши товары</a>
                 <div class="clear"></div>
                 <a href="/balance" class="i-fact i">Пополнить баланс</a>
                 <div class="clear"></div>
