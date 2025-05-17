@@ -17,7 +17,7 @@ user_requests = {}
 ADMIN_ID = 713056261
 reply_keyboard = [
         [InlineKeyboardButton("Проблемы с заказом", callback_data='option1')],
-        [InlineKeyboardButton("Помощь с сайтом", callback_data='option1.1')],
+        [InlineKeyboardButton("Помощь с сайтом", callback_data='option3')],
         [InlineKeyboardButton("О нас", callback_data='option2')],
         [InlineKeyboardButton('Оставить отзыв', callback_data='feedback')]
     ]
@@ -99,35 +99,6 @@ async def button(update, context: CallbackContext):
     if query.data == 'sendmessange':
         await query.message.reply_text(text="Добро пожаловать! Напишите свой вопрос, и мы ответим вам.")
         return
-
-    if query.data == 'option1.1':
-        aboutus_keyboard = [
-            [InlineKeyboardButton('Создать аккаунт', callback_data='aboutus')],
-            [InlineKeyboardButton('Войти в аккаунт', callback_data='aboutus')],
-            [InlineKeyboardButton('Выложить свой товар', callback_data='aboutus')],
-            [InlineKeyboardButton('Пополнение баланса', callback_data='aboutus')],
-            [InlineKeyboardButton('Как найти нужный товар?', callback_data='aboutus')],
-            [create_return_button()]
-        ]
-        aboutus_markup = InlineKeyboardMarkup(aboutus_keyboard)
-        photo_aboutus = 'https://cdn.midjourney.com/adbd95a3-aa00-4578-ab87-6e79e5d8a307/0_2.png'
-        await context.bot.send_photo(
-            chat_id=query.message.chat_id,
-            photo=photo_aboutus,
-            caption=(
-                "<b> 🐌 HomeBerries</b> - это интернет-магазин, вдохновленный российским интернет-магазином <i>WildBerries</i>.\n\n"
-                "🛒 Мы предлагаем широкий ассортимент товаров для дома, включая <i>одежду, "
-                "электронику, товары для кухни и многое другое</i>."
-                "\n\n<b>✅ Наша цель</b> — сделать покупки удобными и доступными <i>для каждого клиента</i>, "
-                "предоставляя качественные товары и отличный сервис.\n\n"
-                "💟 HomeBerries объединяет <i>удобный интерфейс, "
-                "быстрая доставка и разнообразие товаров</i>, чтобы удовлетворить потребности каждого покупателя."
-            ),
-            parse_mode='HTML',  # Указываем, что используем HTML
-            reply_markup=aboutus_markup
-        )
-
-
 
 
     if query.data == 'option2':
@@ -229,7 +200,8 @@ async def button(update, context: CallbackContext):
         )
 
 
-    if query.data == 'one' or query.data == 'two' or query.data == 'three' or query.data == 'four' or query.data == 'five':
+    if query.data == 'rating_1' or query.data == 'rating_2' or query.data == 'rating_3' \
+        or query.data == 'rating_4' or query.data == 'rating_5':
         user_id = query.from_user.id
         current_time = datetime.now()
         if user_id in user_last_rating_time:
