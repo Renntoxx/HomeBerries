@@ -4,3 +4,4 @@ Flask-WTF
 python-telegram-bot
 SQLAlchemy
 sqlalchemy-serializer
+werkzeug
